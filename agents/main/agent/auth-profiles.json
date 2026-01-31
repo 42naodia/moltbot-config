@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "profiles": {
+    "alibaba-cloud:default": {
+      "type": "api_key",
+      "provider": "alibaba-cloud",
+      "key": "sk-3d617bcc760f471ea933f21d45c97608"
+    }
+  },
+  "lastGood": {
+    "alibaba-cloud": "alibaba-cloud:default"
+  },
+  "usageStats": {
+    "alibaba-cloud:default": {
+      "lastUsed": 1769849296836,
+      "errorCount": 0
+    }
+  }
+}
