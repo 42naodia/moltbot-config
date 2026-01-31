@@ -110,7 +110,8 @@
   "tools": {
     "web": {
       "search": {
-        "enabled": true
+        "enabled": true,
+        "braveApiKey": "BSAX8622P-gz8Yo00IaiA07q__f5kSW"
       },
       "fetch": {
         "enabled": true
