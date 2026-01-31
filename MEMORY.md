@@ -178,6 +178,131 @@
 
 ---
 
+## 新能力：浏览器自动化
+
+### 项目：browser-use
+- **GitHub**: https://github.com/browser-use/browser-use
+- **Stars**: 77,500+
+- **官网**: https://browser-use.com
+- **文档**: https://docs.browser-use.com
+
+### 核心架构
+
+```
+User Task (自然语言)
+    │
+    ▼
+Agent (大脑，负责任务规划)
+    │
+    ├── 选择可用工具 (点击、输入、滚动、截图...)
+    │
+    ▼
+Browser Controller (控制浏览器)
+    │
+    ▼
+Chromium Browser (实际执行)
+    │
+    ▼
+Vision-Language Model (理解页面，生成下一步行动)
+```
+
+### 快速开始
+
+```bash
+# 1. 安装 uv (Python >= 3.11)
+uv init
+
+# 2. 安装 browser-use
+uv add browser-use
+uv sync
+
+# 3. 安装 Chromium
+uvx browser-use install
+
+# 4. 设置 API Key (BROWSER_USE_API_KEY)
+```
+
+### 核心组件
+
+| 组件 | 作用 |
+|------|------|
+| `Agent` | 任务规划器，理解任务并规划步骤 |
+| `Browser` | 浏览器控制器，实际控制浏览器 |
+| `LLM` | 大语言模型，理解页面并决策 |
+| `Tools` | 自定义工具扩展 |
+
+### 支持的 LLM
+
+| LLM | 特点 | 成本 |
+|-----|------|------|
+| **ChatBrowserUse** | 专门优化，速度快 3-5x | $0.20/1M input |
+| OpenAI GPT-4 | 通用能力强 | 按 OpenAI 定价 |
+| Google Gemini | 多模态强 | 按 Google 定价 |
+| Ollama (本地) | 完全免费，本地运行 | 无 |
+
+### 核心功能
+
+1. **表单填写** - 自动填写表单、简历投递
+2. **在线购物** - Instacart、淘宝等自动化
+3. **信息收集** - 搜索、比价、数据抓取
+4. **个人助手** - 订票、订餐、日程管理
+
+### CLI 工具
+
+```bash
+browser-use open https://example.com    # 打开网页
+browser-use state                       # 查看可交互元素
+browser-use click 5                     # 点击第5个元素
+browser-use type "Hello"                # 输入文字
+browser-use screenshot page.png         # 截图
+browser-use close                       # 关闭浏览器
+```
+
+### Cloud vs 本地
+
+| 特性 | 本地 | Cloud |
+|------|------|-------|
+| 成本 | 免费 | $10 新用户credits |
+| 浏览器指纹 | 普通 | Stealth（防检测） |
+| CAPTCHA | 易触发 | 自动绕过 |
+| 代理轮换 | 无 | 支持 |
+| 并发能力 | 受限 | 高并发 |
+
+### 自定义工具示例
+
+```python
+from browser_use import Tools
+
+tools = Tools()
+
+@tools.action(description='Description of what this tool does.')
+def custom_tool(param: str) -> str:
+    return f"Result: {param}"
+
+agent = Agent(
+    task="Your task",
+    llm=llm,
+    browser=browser,
+    tools=tools,
+)
+```
+
+### 典型用例
+
+1. **求职申请** - 自动填写工作申请表
+2. **购物清单** - 将购物清单添加到 Instacart
+3. **装机配置** - 帮用户查找 PC 配件
+4. **数据采集** - 自动抓取网页数据
+
+### 与我集成的可能性
+
+- ✅ 可以通过 exec 执行 uvx browser-use 命令
+- ✅ 可以调用 Python API 控制浏览器
+- ⚠️ 需要处理浏览器进程管理
+- ⚠️ 需要处理长任务和超时
+
+---
+
 ## 用户偏好
 
 ---
@@ -192,5 +317,6 @@
 
 ## 待办
 
-- [ ] 完善信息分析框架的具体应用方法
-- [ ] 建立常见领域的信息源可靠性评估标准
+- [x] 完善信息分析框架的具体应用方法
+- [x] 学习 browser-use 浏览器自动化
+- [ ] 尝试部署 browser-use 到服务器
